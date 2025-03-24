@@ -20,14 +20,17 @@ const EditServiceModal = ({ open, onClose, service, onUpdate }) => {
   const [previewUrls, setPreviewUrls] = useState(service.image || []);
 
   // Handle File Selection
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return; // Ensure files exist
+
+    const files: File[] = Array.from(event.target.files); // Explicitly cast to File[]
     setImages(files);
 
     // Preview Selected Images
     const previewImages = files.map((file) => URL.createObjectURL(file));
     setPreviewUrls(previewImages);
   };
+
 
   // Handle Form Submission
   const handleSubmit = async (e) => {

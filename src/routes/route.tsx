@@ -3,8 +3,9 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 import OverViewPage from "../pages/dashboard/components/OverViewPage";
-import Services from "../pages/dashboard/components/services";
 import ServicesById from "../pages/dashboard/components/ServicesById";
+import Services from "../pages/dashboard/components/Services";
+import Booking from "../pages/dashboard/Booking";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<OverViewPage />} />
         <Route path="/dashboard/services" element={<Services />} />
         <Route path="/dashboard/services/:id" element={<ServicesById />} />
+        <Route path="/dashboard/bookings" element={<Booking />} />
       </Route>
 
       <Route path="/login" element={<Login />} />

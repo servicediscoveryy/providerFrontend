@@ -14,6 +14,7 @@ import {
 const navigationLinks = [
   { name: "Dashboard", path: "/dashboard" },
   { name: "Services", path: "/dashboard/services" },
+  { name: "Bookings", path: "/dashboard/bookings" },
 ];
 
 const DashboardLayout = () => {
@@ -131,9 +132,8 @@ const DashboardLayout = () => {
                     {({ active }) => (
                       <button
                         onClick={() => navigate("/partner/dashboard/profile")}
-                        className={`${
-                          active ? "bg-gray-100" : ""
-                        } flex items-center w-full px-4 py-2 text-gray-700`}
+                        className={`${active ? "bg-gray-100" : ""
+                          } flex items-center w-full px-4 py-2 text-gray-700`}
                       >
                         Profile
                       </button>
@@ -143,9 +143,8 @@ const DashboardLayout = () => {
                     {({ active }) => (
                       <button
                         onClick={() => setLogoutDialogOpen(true)}
-                        className={`${
-                          active ? "bg-gray-100" : ""
-                        } flex items-center w-full px-4 py-2 text-gray-700`}
+                        className={`${active ? "bg-gray-100" : ""
+                          } flex items-center w-full px-4 py-2 text-gray-700`}
                       >
                         Logout
                         <PowerIcon className="w-5 h-5 ml-2 text-red-500" />
