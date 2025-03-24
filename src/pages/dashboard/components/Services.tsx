@@ -237,6 +237,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import EditServiceModal from "./EditServiceModal"; // Import Edit Modal Component
+import CreateService from "./CreateService";
 
 const API_URL = "http://localhost:3000/api/v1/provider-services";
 
@@ -250,7 +251,7 @@ const Services = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [editService, setEditService] = useState(null); // State for Edit Modal
-
+  const [openCreateService, setOpenCreateService] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   // Fetch Services
@@ -325,12 +326,27 @@ const Services = () => {
     handleCloseDialog();
   };
 
+  const handleCreateServiceOpen = () => {
+    setOpenCreateService(true);
+  };
+  const handleCreateServiceCLose = () => {
+    setOpenCreateService(false);
+  };
+
   return (
     <div className="container mx-auto p-4 min-h-screen">
-      <h2 className="text-2xl font-semibold mb-4 text-center">
-        Manage Services
-      </h2>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-semibold mb-4 text-center">
+          Manage Services
+        </h2>
 
+        <h2
+          onClick={() => handleCreateServiceOpen()}
+          className="text-xl cursor-pointer bg-blue-400 px-2 py-1 hover:bg-blue-600 text-white rounded-md font-semibold mb-4 text-center"
+        >
+          Create Service
+        </h2>
+      </div>
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <CircularProgress />
@@ -452,6 +468,11 @@ const Services = () => {
           onUpdate={handleServiceUpdate}
         />
       )}
+
+      <CreateService
+        open={openCreateService}
+        onClose={handleCreateServiceCLose}
+      />
     </div>
   );
 };
