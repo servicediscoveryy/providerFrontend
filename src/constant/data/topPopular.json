@@ -1,0 +1,127 @@
+{
+  "statusCode": 200,
+  "data": [
+    {
+      "_id": "67db13c85256258b208ba173",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12ac330a765af9d93e3a",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T18:58:16.399Z",
+      "updatedAt": "2025-03-19T18:58:16.399Z",
+      "__v": 0,
+      "avgRating": 5,
+      "ratingCount": 3
+    },
+    {
+      "_id": "67db14bdc923fd2c98491f3f",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12b6330a765af9d93e3e",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T19:02:21.233Z",
+      "updatedAt": "2025-03-19T19:02:21.233Z",
+      "__v": 0,
+      "avgRating": 3.8,
+      "ratingCount": 4
+    },
+    {
+      "_id": "67db13c85256258b208ba173",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12ac330a765af9d93e3a",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T18:58:16.399Z",
+      "updatedAt": "2025-03-19T18:58:16.399Z",
+      "__v": 0,
+      "avgRating": 5,
+      "ratingCount": 3
+    },
+    {
+      "_id": "67db14bdc923fd2c98491f3f",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12b6330a765af9d93e3e",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T19:02:21.233Z",
+      "updatedAt": "2025-03-19T19:02:21.233Z",
+      "__v": 0,
+      "avgRating": 3.8,
+      "ratingCount": 4
+    },
+    {
+      "_id": "67db13c85256258b208ba173",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12ac330a765af9d93e3a",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T18:58:16.399Z",
+      "updatedAt": "2025-03-19T18:58:16.399Z",
+      "__v": 0,
+      "avgRating": 5,
+      "ratingCount": 3
+    },
+    {
+      "_id": "67db14bdc923fd2c98491f3f",
+      "providerId": "67db1307330a765af9d93e4a",
+      "title": "cooking service",
+      "description": "making the paneer and meat",
+      "category": "67db12b6330a765af9d93e3e",
+      "image": [
+        "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg"
+      ],
+      "price": 400,
+      "status": "active",
+      "view": 0,
+      "location": "pune",
+      "tags": [],
+      "createdAt": "2025-03-19T19:02:21.233Z",
+      "updatedAt": "2025-03-19T19:02:21.233Z",
+      "__v": 0,
+      "avgRating": 3.8,
+      "ratingCount": 4
+    }
+  ],
+  "message": "Fetched top services",
+  "success": true
+}

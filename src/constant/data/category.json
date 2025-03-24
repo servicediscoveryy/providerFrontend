@@ -1,0 +1,47 @@
+{
+  "statusCode": 200,
+  "data": [
+    {
+      "_id": "67db12ac330a765af9d93e3a",
+      "category": "plumber",
+      "image": "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg",
+      "createdAt": "2025-03-19T18:53:32.469Z",
+      "updatedAt": "2025-03-19T18:53:32.469Z",
+      "__v": 0
+    },
+    {
+      "_id": "67db12b6330a765af9d93e3e",
+      "category": "electrician",
+      "image": "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg",
+      "createdAt": "2025-03-19T18:53:42.490Z",
+      "updatedAt": "2025-03-19T18:53:42.490Z",
+      "__v": 0
+    },
+    {
+      "_id": "67db12bd330a765af9d93e42",
+      "category": "cheif",
+      "image": "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg",
+      "createdAt": "2025-03-19T18:53:49.090Z",
+      "updatedAt": "2025-03-19T18:53:49.090Z",
+      "__v": 0
+    },
+    {
+      "_id": "67db12ca330a765af9d93e46",
+      "category": "a/c repairer",
+      "image": "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg",
+      "createdAt": "2025-03-19T18:54:02.249Z",
+      "updatedAt": "2025-03-19T18:54:02.249Z",
+      "__v": 0
+    },
+    {
+      "_id": "67dbb14097deb9c369472593",
+      "category": "carpainter",
+      "image": "https://static.vecteezy.com/system/resources/previews/006/137/360/non_2x/painter-paint-the-wall-free-vector.jpg",
+      "createdAt": "2025-03-20T06:10:08.173Z",
+      "updatedAt": "2025-03-20T06:10:08.173Z",
+      "__v": 0
+    }
+  ],
+  "message": "Categories fetched successfully",
+  "success": true
+}

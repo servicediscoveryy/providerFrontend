@@ -1,0 +1,289 @@
+{
+  "statusCode": 200,
+  "data": [
+    {
+      "_id": "67db12ac330a765af9d93e3a",
+      "category": "plumber",
+      "createdAt": "2025-03-19T18:53:32.469Z",
+      "updatedAt": "2025-03-19T18:53:32.469Z",
+      "__v": 0,
+      "services": [
+        {
+          "_id": "67db149bc923fd2c98491f3c",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12ac330a765af9d93e3a",
+            "category": "plumber",
+            "createdAt": "2025-03-19T18:53:32.469Z",
+            "updatedAt": "2025-03-19T18:53:32.469Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-19T19:01:47.240Z",
+          "updatedAt": "2025-03-19T19:01:47.240Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67db1496c923fd2c98491f38",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12ac330a765af9d93e3a",
+            "category": "plumber",
+            "createdAt": "2025-03-19T18:53:32.469Z",
+            "updatedAt": "2025-03-19T18:53:32.469Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-19T19:01:42.466Z",
+          "updatedAt": "2025-03-19T19:01:42.466Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67db13c85256258b208ba173",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12ac330a765af9d93e3a",
+            "category": "plumber",
+            "createdAt": "2025-03-19T18:53:32.469Z",
+            "updatedAt": "2025-03-19T18:53:32.469Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-19T18:58:16.399Z",
+          "updatedAt": "2025-03-19T18:58:16.399Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        }
+      ]
+    },
+    {
+      "_id": "67db12b6330a765af9d93e3e",
+      "category": "electrician",
+      "createdAt": "2025-03-19T18:53:42.490Z",
+      "updatedAt": "2025-03-19T18:53:42.490Z",
+      "__v": 0,
+      "services": [
+        {
+          "_id": "67dbc560f5ff336fee056c0f",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:36:00.765Z",
+          "updatedAt": "2025-03-20T07:36:00.765Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67dbc55df5ff336fee056c0c",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:35:57.177Z",
+          "updatedAt": "2025-03-20T07:35:57.177Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67dbc55cf5ff336fee056c09",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:35:56.014Z",
+          "updatedAt": "2025-03-20T07:35:56.014Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67dbc55af5ff336fee056c06",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:35:54.582Z",
+          "updatedAt": "2025-03-20T07:35:54.582Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67dbc559f5ff336fee056c03",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:35:53.296Z",
+          "updatedAt": "2025-03-20T07:35:53.296Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67dbc557f5ff336fee056c00",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-20T07:35:51.503Z",
+          "updatedAt": "2025-03-20T07:35:51.503Z",
+          "__v": 0,
+          "avgRating": 0,
+          "ratingCount": 0
+        },
+        {
+          "_id": "67db14bdc923fd2c98491f3f",
+          "providerId": "67db1307330a765af9d93e4a",
+          "title": "cooking service",
+          "description": "making the paneer and meat",
+          "category": {
+            "_id": "67db12b6330a765af9d93e3e",
+            "category": "electrician",
+            "createdAt": "2025-03-19T18:53:42.490Z",
+            "updatedAt": "2025-03-19T18:53:42.490Z",
+            "__v": 0
+          },
+          "image": ["https://lcoalhost"],
+          "price": 400,
+          "status": "active",
+          "view": 0,
+          "location": "pune",
+          "tags": [],
+          "createdAt": "2025-03-19T19:02:21.233Z",
+          "updatedAt": "2025-03-19T19:02:21.233Z",
+          "__v": 0,
+          "avgRating": 3.8,
+          "ratingCount": 4
+        }
+      ]
+    },
+    {
+      "_id": "67db12bd330a765af9d93e42",
+      "category": "cheif",
+      "createdAt": "2025-03-19T18:53:49.090Z",
+      "updatedAt": "2025-03-19T18:53:49.090Z",
+      "__v": 0,
+      "services": []
+    },
+    {
+      "_id": "67db12ca330a765af9d93e46",
+      "category": "a/c repairer",
+      "createdAt": "2025-03-19T18:54:02.249Z",
+      "updatedAt": "2025-03-19T18:54:02.249Z",
+      "__v": 0,
+      "services": []
+    },
+    {
+      "_id": "67dbb14097deb9c369472593",
+      "category": "carpainter",
+      "createdAt": "2025-03-20T06:10:08.173Z",
+      "updatedAt": "2025-03-20T06:10:08.173Z",
+      "__v": 0,
+      "services": []
+    }
+  ],
+  "message": "Fetched successfully",
+  "success": true
+}

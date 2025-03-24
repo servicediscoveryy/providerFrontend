@@ -1,0 +1,8 @@
+.app-container {
+  width: 100%;
+  max-width: 1280px; /* Adjust as needed */
+  margin: 0 auto; /* Centers the content */
+  padding: 20px; /* Adds space around content */
+  min-height: calc(100vh - 100px); /* Adjust height dynamically */
+  background-color: #f2f1f4; /* White background for content */
+}
