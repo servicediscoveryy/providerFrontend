@@ -36,7 +36,7 @@ const CreateService = ({ open, onClose }) => {
   };
 
   // Handle Image Upload to Cloudinary
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return; // Ensure files exist
 
     const files: File[] = Array.from(e.target.files); // Convert FileList to File[]
@@ -69,18 +69,19 @@ const CreateService = ({ open, onClose }) => {
     } finally {
       setUploading(false);
     }
-  };
+};
+
 
   // Remove Image from Preview
-  const handleRemoveImage = (imageUrl) => {
+const handleRemoveImage = (imageUrl) => {
     setFormData((prev) => ({
       ...prev,
       image: prev.image.filter((img) => img !== imageUrl),
     }));
-  };
+};
 
   // Handle Adding Tags
-  const handleAddTag = (e) => {
+const handleAddTag = (e) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
       setFormData((prev) => ({
@@ -89,7 +90,7 @@ const CreateService = ({ open, onClose }) => {
       }));
       setTagInput("");
     }
-  };
+};
 
   // Remove Tag
   const handleRemoveTag = (tagToRemove) => {
@@ -106,7 +107,10 @@ const CreateService = ({ open, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(API_URL, formData);
+      const response = await axios.post(API_URL, formData, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+
+      });
       console.log(response.data);
       onClose(); // Close modal after successful submission
     } catch (error) {

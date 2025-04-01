@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { BASEURL } from "../../../constant";
 
 // Define types for service data
 interface Service {
@@ -19,7 +20,7 @@ interface Service {
   updatedAt: string;
 }
 
-const API_URL = "http://localhost:3000/api/v1/provider-services"; // Your API URL
+const API_URL = BASEURL + "/api/v1/provider-services"; // Your API URL
 
 const ServicesById: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Get ID from URL
@@ -32,7 +33,10 @@ const ServicesById: React.FC = () => {
   useEffect(() => {
     const fetchServiceById = async () => {
       try {
-        const response = await axios.get<{ data: Service }>(`${API_URL}/${id}`);
+        const response = await axios.get<{ data: Service }>(`${API_URL}/${id}`, {
+          headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+
+        });
         setService(response.data.data);
       } catch (err) {
         setError("Failed to fetch service details.");
@@ -123,11 +127,10 @@ const ServicesById: React.FC = () => {
           <p>
             <strong>Status:</strong>{" "}
             <span
-              className={`px-2 py-1 rounded ${
-                service?.status === "active"
-                  ? "bg-green-200 text-green-800"
-                  : "bg-red-200 text-red-800"
-              }`}
+              className={`px-2 py-1 rounded ${service?.status === "active"
+                ? "bg-green-200 text-green-800"
+                : "bg-red-200 text-red-800"
+                }`}
             >
               {service?.status}
             </span>

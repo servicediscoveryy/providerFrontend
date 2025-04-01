@@ -1,51 +1,73 @@
 import React, { useState } from "react";
 import { Mail, KeyRound, ArrowRight } from "lucide-react";
-
+import axios from "axios";
+import { BASEURL } from "../../constant";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/slices/userSlices";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setShowOtp(true);
-      setLoading(false);
-    }, 1000);
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); try {
+
+      setLoading(true);
+      const response = await axios.post(BASEURL + "/api/v1/auth/login", { email: email });
+      console.log(response.data)
+      if (response.data.success) {
+        alert("otp sent successfull");
+        setShowOtp(true);
+        setLoading(false)
+      }
+
+    } catch (error) {
+      alert(error.response.data.message)
+      setLoading(false)
+    }
   };
 
-  const handleOtpSubmit = (e: React.FormEvent) => {
+  const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      alert("Login successful!");
-      setLoading(false);
-    }, 1000);
+    try {
+      setLoading(true);
+      const response = await axios.post(BASEURL + "/api/v1/auth/verify", { otp: otp, email: email });
+      // data.token,user,success
+      if (response.data.success) {
+        sessionStorage.setItem("token", response.data.data.token)
+        sessionStorage.setItem("user", JSON.stringify(response.data.data.data))
+        dispatch(login(response.data.data.data))
+        alert("Login successful!");
+        setLoading(false);
+        navigate("/")
+      }
+    } catch (error) {
+      console.log(error)
+
+    }
   };
 
   return (
-    <div className=" flex items-center justify-center p-4">
-      <div className="w-full max-w-5xl flex rounded-2xl overflow-hidden shadow-2xl">
-        <div className="w-1/2 relative hidden md:block h-[600px]">
-          <div className="bg-black text-white p-2 rounded h-full text-center flex items-center justify-center">
-            <span className="font-bold text-5xl">SC</span>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
-          <div className="absolute top-8 left-8 text-white">
-            <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
-            <p className="text-lg opacity-90">
+    <div className="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+      <div className="w-full max-w-5xl flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-2xl bg-white md:h-[600px]">
+        {/* Left Side (Hidden on Small Screens) */}
+        <div className="hidden md:flex w-1/2 relative items-center justify-center bg-black text-white p-6">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold">Welcome Back!</h2>
+            <p className="text-lg opacity-90 mt-2">
               Sign in to continue your journey
             </p>
           </div>
         </div>
 
-        <div className="w-full md:w-[80%] bg-white p-8 sm:p-12 h-[600px] flex flex-col">
-          <div className="flex-shrink-0 mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">
+        {/* Right Side (Login Form) */}
+        <div className="w-full md:w-1/2 p-6 sm:p-12 flex flex-col justify-center">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">
               {showOtp ? "Enter OTP" : "Sign In"}
             </h1>
             <p className="text-gray-600 text-lg">
@@ -57,12 +79,9 @@ const Login = () => {
 
           <div className="flex-grow flex flex-col">
             {!showOtp ? (
-              <form onSubmit={handleEmailSubmit} className="space-y-8">
+              <form onSubmit={handleEmailSubmit} className="space-y-6">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-lg font-medium text-gray-700 mb-3"
-                  >
+                  <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
                   <div className="relative">
@@ -84,22 +103,13 @@ const Login = () => {
                   disabled={loading}
                   className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl text-lg font-medium hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/50 transition flex items-center justify-center gap-2"
                 >
-                  {loading ? (
-                    "Sending OTP..."
-                  ) : (
-                    <>
-                      Request OTP <ArrowRight className="h-5 w-5" />
-                    </>
-                  )}
+                  {loading ? "Sending OTP..." : <>Request OTP <ArrowRight className="h-5 w-5" /></>}
                 </button>
               </form>
             ) : (
-              <form onSubmit={handleOtpSubmit} className="space-y-8">
+              <form onSubmit={handleOtpSubmit} className="space-y-6">
                 <div>
-                  <label
-                    htmlFor="otp"
-                    className="block text-lg font-medium text-gray-700 mb-3"
-                  >
+                  <label htmlFor="otp" className="block text-lg font-medium text-gray-700 mb-2">
                     One-Time Password
                   </label>
                   <div className="relative">
@@ -123,13 +133,7 @@ const Login = () => {
                     disabled={loading}
                     className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl text-lg font-medium hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/50 transition flex items-center justify-center gap-2"
                   >
-                    {loading ? (
-                      "Verifying..."
-                    ) : (
-                      <>
-                        Verify OTP <ArrowRight className="h-5 w-5" />
-                      </>
-                    )}
+                    {loading ? "Verifying..." : <>Verify OTP <ArrowRight className="h-5 w-5" /></>}
                   </button>
 
                   <button

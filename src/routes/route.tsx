@@ -6,15 +6,26 @@ import OverViewPage from "../pages/dashboard/components/OverViewPage";
 import ServicesById from "../pages/dashboard/components/ServicesById";
 import Services from "../pages/dashboard/components/Services";
 import Booking from "../pages/dashboard/Booking";
+import RoleBasedProtectedRoute from "./protectedRoute";
+import Profile from "../pages/Profile";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<OverViewPage />} />
-        <Route path="/dashboard/services" element={<Services />} />
-        <Route path="/dashboard/services/:id" element={<ServicesById />} />
-        <Route path="/dashboard/bookings" element={<Booking />} />
+      {/* Protect entire Dashboard */}
+      <Route
+        path="/"
+        element={
+          <RoleBasedProtectedRoute allowedRoles={["provider"]}>
+            <DashboardLayout />
+          </RoleBasedProtectedRoute>
+        }
+      >
+        <Route path="/" element={<OverViewPage />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/services/:id" element={<ServicesById />} />
+        <Route path="/bookings" element={<Booking />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
 
       <Route path="/login" element={<Login />} />
