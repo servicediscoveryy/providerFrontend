@@ -8,6 +8,7 @@ import Services from "../pages/dashboard/components/Services";
 import Booking from "../pages/dashboard/Booking";
 import RoleBasedProtectedRoute from "./protectedRoute";
 import Profile from "../pages/Profile";
+import History from "../pages/dashboard/History";
 
 const AppRoutes = () => {
   return (
@@ -20,11 +21,12 @@ const AppRoutes = () => {
             <DashboardLayout />
           </RoleBasedProtectedRoute>
         }
-      >
+      > 
         <Route path="/" element={<OverViewPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/:id" element={<ServicesById />} />
         <Route path="/bookings" element={<Booking />} />
+        <Route path="/history" element={<History />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
 

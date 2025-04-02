@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import AppRoutes from "./routes/route";
 import { sessionUser } from "./utils/helper";
 import { useEffect } from "react";
-import { login } from "./redux/slices/userSlices";
+import { login } from "./redux/slices/features/user/userSlices";
 
 function App() {
   const dispatch = useDispatch();

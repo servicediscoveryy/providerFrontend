@@ -5,12 +5,13 @@ import { Bars3Icon, XMarkIcon, UserCircleIcon, PowerIcon } from "@heroicons/reac
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store"; // Adjust import according to your store structure
 import { removeSessionUser } from "../../utils/helper";
-import { logout } from "../../redux/slices/userSlices";
+import { logout } from "../../redux/slices/features/user/userSlices";
 
 const navigationLinks = [
   { name: "Dashboard", path: "/" },
   { name: "Services", path: "/services" },
   { name: "Bookings", path: "/bookings" },
+  { name: "History", path: "/history" },
 ];
 
 const DashboardLayout = () => {
@@ -21,7 +22,7 @@ const DashboardLayout = () => {
   const user = useSelector((state: RootState) => state.user.user); // Adjust based on your Redux state
   const dispatch = useDispatch<AppDispatch>();
 
-  
+
   const confirmLogout = async () => {
     removeSessionUser();
     dispatch(logout())
@@ -47,7 +48,7 @@ const DashboardLayout = () => {
 
 
   return (
-    <div className="flex min-h-screen max-h-screen bg-gray-100">
+    <div className="flex min-h-screen max-h-screen  max-w-full">
       {/* Sidebar for Mobile */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>

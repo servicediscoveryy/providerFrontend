@@ -4,7 +4,7 @@ import axios from "axios";
 import { BASEURL } from "../../constant";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/slices/userSlices";
+import { login } from "../../redux/slices/features/user/userSlices";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
