@@ -55,7 +55,6 @@ const Booking = () => {
 
     useEffect(() => {
         if (bookings.length === 0) {
-
             dispatch(fetchBookings())
         }
     }, []);
@@ -189,7 +188,7 @@ const Booking = () => {
             {/* Booking Table (For Desktop & Tablets) */}
             {!loading && !error && !isMobile && (
                 <>
-                    <div className="overflow-x-auto text-white rounded-md">
+                    <div className="overflow-x-auto  text-white rounded-md">
                         <table className="min-w-full border border-gray-300 shadow-md rounded-md">
                             <thead className="bg-gray-700 text-white">
                                 <tr>

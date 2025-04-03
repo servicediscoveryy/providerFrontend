@@ -48,7 +48,7 @@ const DashboardLayout = () => {
 
 
   return (
-    <div className="flex min-h-screen max-h-screen  max-w-full">
+    <div className="flex min-h-screen max-h-screen   ">
       {/* Sidebar for Mobile */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>
@@ -145,7 +145,7 @@ const DashboardLayout = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
+              <Menu.Items className="absolute right-0 mt-2 w-48 bg-white z-50 shadow-lg rounded-md py-2">
                 <Menu.Item>
                   {({ active }) => (
                     <button
