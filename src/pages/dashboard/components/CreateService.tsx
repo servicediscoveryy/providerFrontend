@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, KeyboardEvent, ChangeEvent } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -12,12 +12,51 @@ import {
   Select,
   MenuItem,
   CircularProgress,
+  Box,
+  Typography,
+  IconButton,
 } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BASEURL } from "../../../constant";
+import CloseIcon from "@mui/icons-material/Close";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
 
-const CreateService = ({ open, onClose }) => {
-  const [formData, setFormData] = useState({
+interface Category {
+  _id: string;
+  category: string;
+}
+
+interface ServiceFormData {
+  title: string;
+  description: string;
+  category: string;
+  image: string[];
+  price: string;
+  tags: string[];
+  location: string;
+}
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+
+interface CreateServiceProps {
+  open: boolean;
+  onClose: () => void;
+  onSuccess?: () => void; // Callback for successful creation
+}
+
+const CreateService = ({ open, onClose, onSuccess }: CreateServiceProps) => {
+  const [formData, setFormData] = useState<ServiceFormData>({
     title: "",
     description: "",
     category: "",
@@ -26,241 +65,304 @@ const CreateService = ({ open, onClose }) => {
     tags: [],
     location: "",
   });
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [uploading, setUploading] = useState(false);
   const [tagInput, setTagInput] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle Input Change
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(null); // Clear error when user makes changes
   };
 
-  // Handle Image Upload to Cloudinary
-const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return; // Ensure files exist
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
 
-    const files: File[] = Array.from(e.target.files); // Convert FileList to File[]
-    if (files.length === 0) return;
-
+    const files = Array.from(e.target.files);
     setUploading(true);
 
     try {
       const uploadedImages = await Promise.all(
-        files.map(async (file): Promise<string> => {
+        files.map(async (file) => {
           const formData = new FormData();
           formData.append("file", file);
-          formData.append("upload_preset", "serviceImages"); // Replace with your Cloudinary preset
+          formData.append("upload_preset", "serviceImages");
 
           const res = await axios.post<{ secure_url: string }>(
             "https://api.cloudinary.com/v1_1/dbsrluq8e/image/upload",
             formData
           );
-
           return res.data.secure_url;
         })
       );
 
       setFormData((prev) => ({
         ...prev,
-        image: [...prev.image, ...uploadedImages], // Append new images
+        image: [...prev.image, ...uploadedImages],
       }));
     } catch (error) {
       console.error("Image upload failed:", error);
+      setError("Failed to upload images. Please try again.");
     } finally {
       setUploading(false);
     }
-};
+  };
 
-
-  // Remove Image from Preview
-const handleRemoveImage = (imageUrl) => {
+  const handleRemoveImage = (imageUrl: string) => {
     setFormData((prev) => ({
       ...prev,
       image: prev.image.filter((img) => img !== imageUrl),
     }));
-};
+  };
 
-  // Handle Adding Tags
-const handleAddTag = (e) => {
+  const handleAddTag = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
-      setFormData((prev) => ({
-        ...prev,
-        tags: [...prev.tags, tagInput.trim()],
-      }));
-      setTagInput("");
+      if (!formData.tags.includes(tagInput.trim())) {
+        setFormData((prev) => ({
+          ...prev,
+          tags: [...prev.tags, tagInput.trim()],
+        }));
+        setTagInput("");
+      }
     }
-};
+  };
 
-  // Remove Tag
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     setFormData((prev) => ({
       ...prev,
       tags: prev.tags.filter((tag) => tag !== tagToRemove),
     }));
   };
 
-  const API_URL = BASEURL + "/api/v1/provider-services";
-
-  // Submit Form Data to Backend
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // Basic validation
+    if (!formData.title || !formData.description || !formData.category) {
+      setError("Please fill in all required fields");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const response = await axios.post(API_URL, formData, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
-
+      await axios.post(`${BASEURL}/api/v1/provider-services`, formData, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
       });
-      console.log(response.data);
-      onClose(); // Close modal after successful submission
-    } catch (error) {
+      onClose();
+      if (onSuccess) onSuccess(); // Notify parent of success
+      // Reset form after successful submission
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        image: [],
+        price: "",
+        tags: [],
+        location: "",
+      });
+    } catch (err) {
+      const error = err as AxiosError;
       console.error(
         "Error creating service:",
         error.response?.data || error.message
       );
+      setError(
+        (error.response?.data as { message?: string })?.message ||
+          "Failed to create service. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Fetch Categories from Backend
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get<{ data: Category[] }>(
+          `${BASEURL}/api/v1/category`
+        );
+        setCategories(res.data.data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+        setError("Failed to load categories. Please try again later.");
+      }
+    };
+
     if (open) {
-      axios
-        .get(BASEURL + "/api/v1/category")
-        .then((res) => setCategories(res.data.data)) // Assuming response is an array of categories
-        .catch((err) => console.error("Error fetching categories:", err));
+      fetchCategories();
     }
   }, [open]);
 
-  const handleCategoryChange = (e) => {
-    setFormData({ ...formData, category: e.target.value }); // Store category ID
+  const handleCategoryChange = (e: { target: { value: string } }) => {
+    setFormData({ ...formData, category: e.target.value });
   };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle className="text-lg font-semibold">
+      <DialogTitle className="text-lg font-semibold flex justify-between items-center">
         Create Service
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
       </DialogTitle>
-      <DialogContent className="space-y-4 p-6">
+      <DialogContent dividers className="space-y-4 p-4">
+        {error && (
+          <Typography color="error" variant="body2" className="mb-2">
+            {error}
+          </Typography>
+        )}
+
         <TextField
           fullWidth
-          label="Title"
+          label="Title *"
           name="title"
           value={formData.title}
           onChange={handleChange}
-          required
+          margin="normal"
         />
+
         <TextField
           fullWidth
-          label="Description"
+          label="Description *"
           name="description"
           value={formData.description}
           onChange={handleChange}
-          required
           multiline
           rows={3}
+          margin="normal"
         />
-        <FormControl fullWidth>
-          <InputLabel id="category-label">Select Category</InputLabel>
+
+        <FormControl fullWidth margin="normal">
+          <InputLabel id="category-label">Category *</InputLabel>
           <Select
             labelId="category-label"
-            value={formData.category || ""}
+            value={formData.category}
             onChange={handleCategoryChange}
-            required
+            label="Category *"
           >
-            {categories.length > 0 ? (
-              categories.map((cat) => (
-                <MenuItem key={cat._id} value={cat._id}>
-                  {cat.category}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem disabled>No categories available</MenuItem>
-            )}
+            {categories.map((cat) => (
+              <MenuItem key={cat._id} value={cat._id}>
+                {cat.category}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
-        <TextField
-          fullWidth
-          type="number"
-          label="Price"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <TextField
-          fullWidth
-          label="Location"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
+        <Box display="flex" gap={2}>
+          <TextField
+            fullWidth
+            type="number"
+            label="Price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Location"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            margin="normal"
+          />
+        </Box>
 
-        {/* Tags Input */}
-        <div className="space-y-2">
+        <Box marginTop={2}>
           <TextField
             fullWidth
             label="Add tags (press Enter)"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             onKeyDown={handleAddTag}
+            helperText="Press Enter to add each tag"
           />
-          <div className="flex flex-wrap gap-2">
+          <Box display="flex" flexWrap="wrap" gap={1} marginTop={1}>
             {formData.tags.map((tag, index) => (
               <Chip
                 key={index}
                 label={tag}
                 onDelete={() => handleRemoveTag(tag)}
-                className="cursor-pointer"
               />
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        {/* Image Upload */}
-        <div className="space-y-2">
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="mt-2"
-          />
+        <Box marginTop={2}>
+          <Button
+            component="label"
+            variant="outlined"
+            startIcon={<CloudUploadIcon />}
+            disabled={uploading}
+          >
+            Upload Images
+            <VisuallyHiddenInput
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+          </Button>
           {uploading && (
-            <div className="flex items-center gap-2 text-blue-500">
-              <CircularProgress size={20} /> Uploading...
-            </div>
+            <Box display="flex" alignItems="center" gap={1} marginTop={1}>
+              <CircularProgress size={20} />
+              <Typography variant="body2">Uploading...</Typography>
+            </Box>
           )}
-          {/* Preview Selected Images */}
           {formData.image.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
+            <Box display="flex" flexWrap="wrap" gap={2} marginTop={2}>
               {formData.image.map((img, index) => (
-                <div key={index} className="relative">
+                <Box key={index} position="relative">
                   <img
                     src={img}
                     alt={`Preview ${index}`}
-                    className="w-24 h-24 object-cover rounded-md border"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      objectFit: "cover",
+                      borderRadius: 4,
+                    }}
                   />
-                  <button
+                  <IconButton
                     onClick={() => handleRemoveImage(img)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      top: 4,
+                      right: 4,
+                      backgroundColor: "error.main",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "error.dark",
+                      },
+                    }}
                   >
-                    ✕
-                  </button>
-                </div>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </Box>
               ))}
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       </DialogContent>
 
-      <DialogActions className="p-6">
-        <Button onClick={onClose} color="secondary">
+      <DialogActions sx={{ padding: 2 }}>
+        <Button onClick={onClose} color="secondary" disabled={isSubmitting}>
           Cancel
         </Button>
-        <Button onClick={handleSubmit} variant="contained" disabled={uploading}>
-          Create Service
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          disabled={uploading || isSubmitting}
+          startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+        >
+          {isSubmitting ? "Creating..." : "Create Service"}
         </Button>
       </DialogActions>
     </Dialog>

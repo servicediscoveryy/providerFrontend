@@ -49,7 +49,6 @@ const Services = () => {
       const response = await axios.get(API_URL, {
         params: { page: page + 1, limit: rowsPerPage },
         headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
-
       });
       setServices(response.data.data);
       setTotalCount(response.data.pagination.totalItems);
@@ -177,9 +176,7 @@ const Services = () => {
                   <TableRow key={service._id} hover>
                     <TableCell
                       className="cursor-pointer"
-                      onClick={() =>
-                        navigate("/services/" + service._id)
-                      }
+                      onClick={() => navigate("/services/" + service._id)}
                       sx={{ textTransform: "capitalize" }}
                     >
                       {service?.title}
@@ -190,7 +187,7 @@ const Services = () => {
                       </TableCell>
                     )}
                     <TableCell sx={{ textTransform: "capitalize" }}>
-                      ${service?.price}
+                      ₹{service?.price}
                     </TableCell>
                     <TableCell align="center">
                       <IconButton
