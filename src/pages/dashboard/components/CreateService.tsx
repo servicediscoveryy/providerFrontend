@@ -35,6 +35,7 @@ interface ServiceFormData {
   price: string;
   tags: string[];
   location: string;
+  coordinates: [number, number];
 }
 
 const VisuallyHiddenInput = styled("input")({
@@ -64,6 +65,7 @@ const CreateService = ({ open, onClose, onSuccess }: CreateServiceProps) => {
     price: "",
     tags: [],
     location: "",
+    coordinates: [0, 0],
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -165,6 +167,7 @@ const CreateService = ({ open, onClose, onSuccess }: CreateServiceProps) => {
         price: "",
         tags: [],
         location: "",
+        coordinates: [0, 0],
       });
     } catch (err) {
       const error = err as AxiosError;
@@ -272,6 +275,37 @@ const CreateService = ({ open, onClose, onSuccess }: CreateServiceProps) => {
             onChange={handleChange}
             margin="normal"
           />
+        </Box>
+
+        <Box display="flex" alignItems="center" gap={2} mt={1}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              if (!navigator.geolocation) {
+                setError("Geolocation is not supported by your browser.");
+                return;
+              }
+
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const { latitude, longitude } = position.coords;
+                  setFormData((prev) => ({
+                    ...prev,
+                    coordinates: [longitude, latitude], // backend expects [lng, lat]
+                  }));
+                },
+                (err) => {
+                  console.error(err);
+                  setError("Failed to retrieve location.");
+                }
+              );
+            }}
+          >
+            Use My Location
+          </Button>
+          <Typography variant="body2">
+            Coordinates: {formData.coordinates.join(", ")}
+          </Typography>
         </Box>
 
         <Box marginTop={2}>
