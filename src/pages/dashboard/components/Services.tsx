@@ -187,7 +187,7 @@ const Services = () => {
                     </TableCell>
                     {!isSmallScreen && (
                       <TableCell sx={{ textTransform: "capitalize" }}>
-                        {service?.category.category}
+                        {service?.category?.category}
                       </TableCell>
                     )}
                     <TableCell sx={{ textTransform: "capitalize" }}>
