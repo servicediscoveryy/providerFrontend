@@ -107,7 +107,11 @@ const Services = () => {
   // Delete Service
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/${selectedServiceId}`);
+      await axios.delete(`${API_URL}/${selectedServiceId}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      });
       fetchServices();
     } catch (error) {
       console.error("Error deleting service:", error);
