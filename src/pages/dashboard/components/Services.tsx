@@ -26,8 +26,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import EditServiceModal from "./EditServiceModal"; // Import Edit Modal Component
 import CreateService from "./CreateService";
+import { BASEURL } from "../../../constant";
 
-const API_URL = "http://localhost:3000/api/v1/provider-services";
+const API_URL = BASEURL+"api/v1/provider-services";
 
 const Services = () => {
   const navigate = useNavigate();
