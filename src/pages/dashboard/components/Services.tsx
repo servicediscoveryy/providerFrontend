@@ -176,7 +176,7 @@ const Services = () => {
               </TableHead>
 
               <TableBody>
-                {services.map((service) => (
+                {services?.map((service) => (
                   <TableRow key={service._id} hover>
                     <TableCell
                       className="cursor-pointer"
@@ -187,7 +187,7 @@ const Services = () => {
                     </TableCell>
                     {!isSmallScreen && (
                       <TableCell sx={{ textTransform: "capitalize" }}>
-                        {service?.category.category}
+                        {service?.category?.category}
                       </TableCell>
                     )}
                     <TableCell sx={{ textTransform: "capitalize" }}>

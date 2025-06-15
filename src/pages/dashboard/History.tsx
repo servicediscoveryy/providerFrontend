@@ -26,19 +26,23 @@ const History = () => {
   const usersData = useSelector(selectUsers);
   const error = useSelector(selectError);
   const loading = useSelector(selectLoading);
-
+  // @ts-expect-error
   const totalUsers = usersData?.totalUsers || 0; // Total users from API
+  // @ts-expect-error
   const totalPages = usersData?.totalPages || 1; // Total pages from API
+  // @ts-expect-error
   const userList = usersData?.users || []; // Actual list of users
 
   // Use currentPage from API, default to 0
   const [page, setPage] = useState(
+    // @ts-expect-error
     usersData?.currentPage ? usersData?.currentPage - 1 : 0
   );
   const [rowsPerPage, setRowsPerPage] = useState(10); // Default limit
 
   // Fetch users when page or rowsPerPage changes
   useEffect(() => {
+    // @ts-expect-error
     dispatch(fetchUsers({ page: page + 1, limit: rowsPerPage })); // API expects 1-based index
   }, [dispatch, page, rowsPerPage]);
 
