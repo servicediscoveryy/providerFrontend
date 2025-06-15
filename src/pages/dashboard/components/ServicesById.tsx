@@ -34,7 +34,7 @@ interface Service {
   ratingAvg: Array<{ _id: string; avgRating: number; totalRating: number }>;
 }
 
-const API_URL = BASEURL + "/api/v1/services";
+const API_URL = BASEURL + "api/v1/services";
 
 const ServicesById: React.FC = () => {
   const { id } = useParams<{ id: string }>();
